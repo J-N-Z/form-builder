@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { InputField, TextField, DateField, CheckboxField } from '@admiral-ds/react-ui';
 import { TestForm } from './TestForm';
+
 import { ConstructorPage } from './ConstructorPage';
-import { DndProvider, useDrop } from 'react-dnd';
+import { DBTablePage } from './DBTablePage';
+import { NotfoundPage } from './NotfoundPage';
+
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-
-import { availableFieldsDefault } from './ConstructorPage/mock';
 
 
 interface SchemaObject {
@@ -65,13 +67,6 @@ const schema: SchemaObject[] = [
 ];
 
 const COMMON_FIELD_TYPES = ['InputField', 'TextField', 'DateField'];
-
-
-const StyledApp = styled.div`
-  height: 100%;
-  padding: 15px;
-  background: #f2f4f8;
-`;
 
 
 const getWidth = (colSize: number) => {
@@ -136,7 +131,7 @@ const schemaToForm = (schema: SchemaObject[]) => {
           <CheckboxField
             disabled={item.disabled}
             checked={item.value}
-            onChange={() => {}}
+            onChange={() => { }}
           >
             {item.label}
           </CheckboxField>
@@ -154,21 +149,60 @@ const schemaToForm = (schema: SchemaObject[]) => {
 
 
 
+
+const StyledApp = styled.div`
+  height: 100%;
+  padding: 0 15px;
+  background: #f2f4f8;
+`;
+
+const Menu = styled.header`
+  display: flex;
+  justify-content: center;
+  width: calc(100% + 30px);
+  margin-left: -15px;
+  padding: 15px;
+  margin-bottom: 16px;
+  background: #fff;
+  border-bottom: 1px solid #e4e9f0;
+
+  a {
+    display: inline-flex;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #827ca1;
+    font-size: 16px;
+    font-weight: 700;
+  }
+`;
+
+
 function App() {
   const form = schemaToForm(schema);
 
   console.log('form', form);
 
-  const [availableFields, setAvailableFields] = useState(availableFieldsDefault);
-
   return (
     <StyledApp>
       {/* <TestForm /> */}
       {/* {form} */}
-      <DndProvider backend={HTML5Backend}>
-        <ConstructorPage />
-      </DndProvider>
-      
+
+      <Menu>
+        <Link to="/">Constructor</Link>
+        <Link to="/DBTable">DBTable</Link>
+      </Menu>
+
+      <Routes>
+        <Route path="/" element={
+          <DndProvider backend={HTML5Backend}>
+            <ConstructorPage />
+          </DndProvider>
+        }
+        />
+        <Route path="/DBTable" element={<DBTablePage />} />
+        <Route path="*" element={<NotfoundPage />} />
+      </Routes>
+
     </StyledApp>
   );
 }
