@@ -1,4 +1,6 @@
-import { Table } from '@admiral-ds/react-ui';
+import { useState } from 'react';
+import { Table, Button, Modal, ModalTitle } from '@admiral-ds/react-ui';
+import { CreateFieldForm } from './CreateFieldForm';
 import { availableFieldsDefault } from '../ConstructorPage/mock';
 
 
@@ -6,7 +8,7 @@ const columnList = [
     {
         name: "fieldName",
         title: "Название",
-        width: 350 
+        width: 350
     },
     {
         name: "SQLName",
@@ -35,13 +37,39 @@ const rowList = availableFieldsDefault.map((item) => ({
 
 
 export const DBTablePage = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [tableRows, setTableRows] = useState(rowList);
+
+    const handleCreateField = (field: any) => {
+        console.log(field);
+        setTableRows([...tableRows, {...field, fieldType: 'строка'}]); // TODO Значение брать из компонента Select формы
+        setIsModalOpen(false);
+    }
+
     return (
         <div>
             <Table
-                rowList={rowList}
+                rowList={tableRows}
                 columnList={columnList}
                 greyHeader={true}
             />
+
+            <Button
+                style={{ marginTop: 20 }}
+                dimension="s"
+                onClick={() => setIsModalOpen(true)}
+            >
+                Создать поле
+            </Button>
+            {isModalOpen && (
+                <Modal
+                    dimension="l"
+                    onClose={() => setIsModalOpen(false)}
+                >
+                    <ModalTitle id="modal-title">Поле таблицы</ModalTitle>
+                    <CreateFieldForm onCreate={handleCreateField} />
+                </Modal>
+            )}
         </div>
     )
 }
