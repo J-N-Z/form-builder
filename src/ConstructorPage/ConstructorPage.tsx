@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
 import { useDrop } from 'react-dnd';
+import { Button } from '@admiral-ds/react-ui';
 import { SchematicField } from './SchematicField';
 import { SchematicFieldDummy } from './SchematicFieldDummy';
 import { schematicFieldRowDefault } from './constants';
@@ -132,7 +132,7 @@ export const ConstructorPage = () => {
                 </DesignerSection>
             </StyledConstructorPage>
             <div style={{ textAlign: 'right', marginTop: 15 }}>
-                <button onClick={handleSave}>Сохранить</button>
+                <Button dimension="s" onClick={handleSave}>Сохранить</Button>
             </div>
         </>
     )
