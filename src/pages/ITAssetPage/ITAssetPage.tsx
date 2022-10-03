@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Button, TabMenu } from '@admiral-ds/react-ui';
-import { CustomSchemaField } from '../types';
-import { FormBuilderCustom } from '../TestForm/FormBuilderCustom';
+import { CustomSchemaField } from '../../types';
+import { FormBuilderCustom } from '../../components/FormBuilderCustom';
 import { SoftwareInstances } from './TabsContent/SoftwareInstances';
+import { TechInfo } from './TabsContent/TechInfo';
 
 
 
@@ -43,6 +44,12 @@ const gridSchemaCustom = [
         {
             id: 'description',
             width: 4
+        },
+    ],
+    [
+        {
+            id: 'ok',
+            width: 1
         },
     ]
 ];
@@ -107,6 +114,13 @@ const customSchema: CustomSchemaField[] = [
         placeholder: '',
         value: '',
     },
+    {
+        id: 'ok',
+        type: 'checkbox',
+        label: 'Да/Нет',
+        placeholder: '',
+        value: '',
+    },
 ];
 
 
@@ -142,22 +156,26 @@ export const ITAssetPage = () => {
             content: 'Экземпляры ПО',
             id: '2'
         },
+        {
+            content: 'Тех.инфо',
+            id: '3'
+        },
     ];
 
     const getTabContent = () => {
         switch (activeTabId) {
             case '1': {
-                return (
-                    <div>Форма</div>
-                )
+                return <div>Форма</div>
             }
 
             case '2': {
-                return (
-                    <div><SoftwareInstances /></div>
-                )
+                return <SoftwareInstances />
             }
-             
+
+            case '3': {
+                return <TechInfo />
+            }
+
             default: {
                 return null;
             }
@@ -181,7 +199,7 @@ export const ITAssetPage = () => {
                 </Button>
             </Section>
 
-            <Section style={{}}>
+            <Section>
                 <TabMenu
                     activeTab={activeTabId}
                     tabs={tabs}

@@ -2,10 +2,10 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { TestForm } from './TestForm';
 
-import { ConstructorPage } from './ConstructorPage';
-import { DBTablePage } from './DBTablePage';
-import { ITAssetPage } from './ITAssetPage';
-import { NotfoundPage } from './NotfoundPage';
+import { ConstructorPage } from './pages/ConstructorPage';
+import { DBTablePage } from './pages/DBTablePage';
+import { ITAssetPage } from './pages/ITAssetPage';
+import { NotfoundPage } from './pages/NotfoundPage';
 
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';

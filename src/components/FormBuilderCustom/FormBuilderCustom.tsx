@@ -19,14 +19,14 @@ import { CustomSchemaField } from '../../types';
 
 const GridRow = styled.div`
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 `;
 
 const GridItem = styled.div`
     padding: 0 10px;
 `;
 
- const getWidth = (colSize: number) => {
+const getWidth = (colSize: number) => {
     return `${colSize / 4 * 100}%`
 }
 
@@ -60,10 +60,13 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
     const handleChange = (field: CustomSchemaField, e: any) => {
         let value = e.target.value;
 
-        // TODO для checkbox также должно быть добавлено доп условие и значение должно браться из e.target.checked
         if (field.type === FieldTypes.select) {
             const targetObj = field.options?.find((option) => option.id === e.target.value);
             value = targetObj;
+        }
+
+        if (field.type === FieldTypes.checkbox) {
+            value = e.target.checked;
         }
 
         onChange(field.id, value);
@@ -131,9 +134,8 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
             case FieldTypes.date: {
                 return (
                     <DateField
-                        label={label}
+                        {...commonProps}
                         value={value}
-                        placeholder={placeholder}
                         onChange={(e) => handleChange(fieldObj, e)}
                     />
                 )
@@ -142,8 +144,8 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
             case FieldTypes.checkbox: {
                 return (
                     <CheckboxField
-                        dimension="s"
-                        onChange={() => { }}
+                        disabled={disabled}
+                        onChange={(e) => handleChange(fieldObj, e)}
                     >
                         {label}
                     </CheckboxField>
