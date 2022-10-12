@@ -86,7 +86,7 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
     }
 
     const getFieldByProperty = (fieldObj: CustomSchemaField): JSX.Element | null => {
-        const { id, type, label, value, placeholder, options, disabled } = fieldObj;
+        const { id, type, label, value, placeholder, options, disabled, precision = 0 } = fieldObj;
 
         const commonProps = {
             id,
@@ -125,7 +125,7 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
                         {...commonProps}
                         value={value}
                         suffix=""
-                        precision={0}
+                        precision={precision}
                         onChange={(e) => handleChange(fieldObj, e)}
                     />
                 )
@@ -158,7 +158,7 @@ export const FormBuilderCustom: FC<FormBuilderProps> = ({ schema, gridSchema, on
                         {...commonProps}
                         mode="select"
                         onChange={(e) => handleChange(fieldObj, e)}
-                        value={value.title}
+                        value={value?.title}
                     >
                         {
                             options?.map((option) => (
