@@ -3,7 +3,7 @@ import Form from "@rjsf/core";
 import { JSONSchema7 } from 'json-schema';
 import { Button } from '@admiral-ds/react-ui';
 import { FormBuilder } from './FormBuilder';
-import { FormBuilderCustom } from './FormBuilderCustom';
+import { FormBuilderCustom } from '../components/FormBuilderCustom';
 import { CustomSchemaField } from '../types';
  
 
